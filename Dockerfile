@@ -33,8 +33,8 @@ RUN wget \
     rm -f Miniconda3-latest-Linux-x86_64.sh
 
 # Install Colmap
-RUN apt-get update && sudo apt-get -y install colmap && \
-    sudo apt-get install -y \
+RUN apt-get update && apt-get -y install colmap && \
+    apt-get install -y \
         git \
         cmake \
         ninja-build \
@@ -55,7 +55,7 @@ RUN apt-get update && sudo apt-get -y install colmap && \
         libqt5opengl5-dev \
         libcgal-dev \
         libceres-dev && \
-    sudo apt-get install -y \
+    apt-get install -y \
         nvidia-cuda-toolkit \
         nvidia-cuda-toolkit-gcc
 
