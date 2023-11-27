@@ -32,16 +32,15 @@ RUN wget \
     bash Miniconda3-latest-Linux-x86_64.sh -b && \
     rm -f Miniconda3-latest-Linux-x86_64.sh
 
-# Create conda env
+# Install requirements
 WORKDIR /workdir
-COPY environment.yml .
-RUN conda env create --file environment.yml && \
-    conda activate gaussian_splatting
-
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
+# Create conda env
 COPY . .
+RUN conda env create --file environment.yml && \
+    conda activate gaussian_splatting
 
 RUN chmod u+x ./docker_start.sh
 
