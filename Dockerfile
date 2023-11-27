@@ -57,7 +57,9 @@ RUN apt-get update && apt-get -y install colmap && \
         libceres-dev && \
     apt-get install -y \
         nvidia-cuda-toolkit \
-        nvidia-cuda-toolkit-gcc
+        nvidia-cuda-toolkit-gcc && \
+    apt-get install -y g++ freeglut3-dev build-essential libx11-dev \
+        libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev
 
 
 # Install requirements
