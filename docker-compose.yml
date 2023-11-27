@@ -1,0 +1,9 @@
+volumes:
+  cache:
+services:
+  app:
+    build: .
+    volumes:
+      - .:/workdir
+    ports:
+      - 8091:8080
