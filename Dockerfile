@@ -33,10 +33,11 @@ RUN wget \
     rm -f Miniconda3-latest-Linux-x86_64.sh
 
 # Create conda env
+WORKDIR /workdir
+COPY environment.yml .
 RUN conda env create --file environment.yml && \
     conda activate gaussian_splatting
 
-WORKDIR /workdir
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
