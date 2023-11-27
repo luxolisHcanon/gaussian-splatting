@@ -4,8 +4,7 @@ FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # FROM linuxserver/blender:3.5.1
 
 # install essentials
-RUN apt-get install software-properties-common && \
-    apt install build-essential -y
+RUN apt install build-essential -y
 
 # Python install
 RUN apt-get update && \
