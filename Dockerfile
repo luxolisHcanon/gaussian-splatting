@@ -3,6 +3,9 @@ FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # FROM linuxserver/blender:3.5.0
 # FROM linuxserver/blender:3.5.1
 
+# Remove questions from the installs
+ENV DEBIAN_FRONTEND=noninteractive
+
 # install essentials
 RUN apt-get update -y && \
     apt-get install software-properties-common -y && \
