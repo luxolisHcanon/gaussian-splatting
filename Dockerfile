@@ -4,17 +4,12 @@ FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # FROM linuxserver/blender:3.5.1
 
 # Python install
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3.8 \
-    python3-pip \
-    && \
+RUN apt-get update && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt install -y python3.8 && \
+    apt-get install -y --no-install-recommends python3-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-# Install AWS Cli and config
-RUN pip3 install awscli && \
-    aws configure set aws_access_key_id $AK && \
-    aws configure set aws_secret_access_key $SK
 
 WORKDIR /workdir
 COPY requirements.txt .
