@@ -1,7 +1,8 @@
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # FROM python:3
-# FROM linuxserver/blender:3.5.0
-# FROM linuxserver/blender:3.5.1
+
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
 
 # Remove questions from the installs
 ENV DEBIAN_FRONTEND=noninteractive
@@ -18,6 +19,23 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends python3-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Pre-install conda
+RUN apt-get update && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install conda
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    mkdir /root/.conda && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b && \
+    rm -f Miniconda3-latest-Linux-x86_64.sh
+RUN conda --version
+
+# Create conda env
+RUN conda env create --file environment.yml && \
+    conda activate gaussian_splatting
 
 WORKDIR /workdir
 COPY requirements.txt .
