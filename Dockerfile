@@ -41,14 +41,13 @@ RUN apt-get update && apt-get -y install colmap
 #    apt-get update && \
 #    apt-get -y install cuda-11-8
 
-# Install requirements
-WORKDIR /workdir
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
-
 # Create conda env
+WORKDIR /workdir
 COPY . .
 RUN conda env create --file environment.yml
+
+# Install requirements
+RUN pip3 install -r requirements.txt
 
 RUN chmod u+x ./docker_start.sh
 
