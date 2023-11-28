@@ -1,9 +1,6 @@
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # FROM python:3
 
-ENV PATH="/root/miniconda3/bin:${PATH}"
-ARG PATH="/root/miniconda3/bin:${PATH}"
-
 # Remove questions from the installs
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -51,16 +48,7 @@ RUN pip3 install -r requirements.txt
 
 # Create conda env
 COPY . .
-RUN conda create -n gaussian_splatting python=3.11 && \
-    conda install -n gaussian_splatting -y pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
-
-SHELL ["conda", "run", "-n", "gaussian_splatting", "/bin/bash", "-c"]
-
-RUN pip install gaussian-splatting-src/submodules/diff-gaussian-rasterization && \
-    pip install install gaussian-splatting-src/submodules/simple-knn && \
-    pip install plyfile && \
-    pip install tqdm
-
+RUN conda env create --file environment.yml
 
 RUN chmod u+x ./docker_start.sh
 
