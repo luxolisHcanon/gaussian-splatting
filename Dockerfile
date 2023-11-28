@@ -25,28 +25,7 @@ RUN wget \
     rm -f Miniconda3-latest-Linux-x86_64.sh
 
 # Install Colmap
-RUN apt-get update && apt-get -y install colmap && \
-    apt-get install -y \
-        git \
-        cmake \
-        ninja-build \
-        build-essential \
-        libboost-program-options-dev \
-        libboost-filesystem-dev \
-        libboost-graph-dev \
-        libboost-system-dev \
-        libeigen3-dev \
-        libflann-dev \
-        libfreeimage-dev \
-        libmetis-dev \
-        libgoogle-glog-dev \
-        libgtest-dev \
-        libsqlite3-dev \
-        libglew-dev \
-        qtbase5-dev \
-        libqt5opengl5-dev \
-        libcgal-dev \
-        libceres-dev
+RUN apt-get update && apt-get -y install colmap
 
 # Install Cuda toolkit and dependencies
 RUN apt-get update && \
@@ -56,10 +35,10 @@ RUN apt-get update && \
     apt-get install -y g++ freeglut3-dev build-essential libx11-dev \
         libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev && \
     apt-get install -y linux-headers-$(uname -r) && \
-    apt-get install -y gcc-11 g++-11  && \
-    export CC=/usr/bin/gcc-11  && \
-    export CXX=/usr/bin/g++-11  && \
-    export CUDAHOSTCXX=/usr/bin/g++-11 && \
+    apt-get install -y gcc-10 g++-10  && \
+    export CC=/usr/bin/gcc-10  && \
+    export CXX=/usr/bin/g++-10  && \
+    export CUDAHOSTCXX=/usr/bin/g++-10 && \
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && \
     apt-get update && \
@@ -70,14 +49,16 @@ WORKDIR /workdir
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
-RUN nvcc --version
-
-RUN conda --version
-
 # Create conda env
 COPY . .
-RUN conda env create --file environment.yml && \
-    conda activate gaussian_splatting
+RUN conda create -n gaussian_splatting python=3.7 && \
+    conda activate gaussian_splatting && \
+    conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia && \
+    pip install submodules/diff-gaussian-rasterization && \
+    pip install submodules/simple-knn && \
+    pip install plyfile && \
+    pip install tqdm
+
 
 RUN chmod u+x ./docker_start.sh
 

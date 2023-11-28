@@ -4,14 +4,14 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - cudatoolkit=11.6
-  - plyfile=0.8.1
+  - pytorch-cuda=11.7
   - python=3.7.13
   - pip=22.3.1
-  - pytorch=1.12.1
-  - torchaudio=0.12.1
-  - torchvision=0.13.1
-  - tqdm
+  - pytorch=1.13.1
+  - torchaudio=0.13.1
+  - torchvision=0.14.1
   - pip:
       - gaussian-splatting-src/submodules/diff-gaussian-rasterization
       - gaussian-splatting-src/submodules/simple-knn
+      - plyfile
+      - tqmd
