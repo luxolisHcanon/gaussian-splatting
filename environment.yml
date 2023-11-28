@@ -13,5 +13,6 @@ dependencies:
   - torchvision=0.13.1
   - tqdm
   - pip:
-      - gaussian-splatting/submodules/diff-gaussian-rasterization
-      - gaussian-splatting/submodules/simple-knn
+      - wheel
+      - gaussian-splatting-src/submodules/diff-gaussian-rasterization
+      - gaussian-splatting-src/submodules/simple-knn

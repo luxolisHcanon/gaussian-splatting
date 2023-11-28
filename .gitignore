@@ -1,9 +1,9 @@
 *.pyc
 .vscode
-gaussian-splatting/output
-gaussian-splatting/build
-gaussian-splatting/diff_rasterization/diff_rast.egg-info
-gaussian-splatting/diff_rasterization/dist
-gaussian-splatting/tensorboard_3d
-gaussian-splatting/screenshots
+gaussian-splatting-src/output
+gaussian-splatting-src/build
+gaussian-splatting-src/diff_rasterization/diff_rast.egg-info
+gaussian-splatting-src/diff_rasterization/dist
+gaussian-splatting-src/tensorboard_3d
+gaussian-splatting-src/screenshots
 .idea
