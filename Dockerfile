@@ -68,6 +68,8 @@ RUN pip3 install -r requirements.txt
 
 RUN nvcc --version
 
+RUN conda --version
+
 # Create conda env
 COPY . .
 RUN conda env create --file environment.yml && \
