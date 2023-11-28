@@ -49,16 +49,17 @@ RUN apt-get update && apt-get -y install colmap && \
         libceres-dev
 
 # Install Cuda toolkit and dependencies
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
         nvidia-cuda-toolkit \
         nvidia-cuda-toolkit-gcc && \
     apt-get install -y g++ freeglut3-dev build-essential libx11-dev \
         libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev && \
     apt-get install -y linux-headers-$(uname -r) && \
-    apt-get install -y gcc-10 g++-10  && \
-    export CC=/usr/bin/gcc-10  && \
-    export CXX=/usr/bin/g++-10  && \
-    export CUDAHOSTCXX=/usr/bin/g++-10
+    apt-get install -y gcc-11 g++-11  && \
+    export CC=/usr/bin/gcc-11  && \
+    export CXX=/usr/bin/g++-11  && \
+    export CUDAHOSTCXX=/usr/bin/g++-11
 
 # Install requirements
 WORKDIR /workdir
