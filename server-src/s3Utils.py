@@ -4,15 +4,12 @@ from pathlib import Path
 
 
 def download_in_s3(url_download):
-    print("Downloading USDZ File")
+    print("Downloading Video")
     # download file
-    sess = Path(tempfile.mkdtemp())
+    temp_directory = Path(tempfile.mkdtemp())
     filename = 'video.mov'
-    file_usdz = sess / filename
-    file_usdz.write_bytes(requests.get(url_download).content)
-
-    filename = 'upload.glb'
-    file_glb = sess / filename
+    video = temp_directory / filename
+    video.write_bytes(requests.get(url_download).content)
 
 
 def upload_in_s3(url_upload, dir_to_upload):
