@@ -51,7 +51,7 @@ RUN pip3 install -r requirements.txt
 
 # Create conda env
 COPY . .
-RUN conda create -n gaussian_splatting python=3.7.13 \
+RUN conda create -n gaussian_splatting python=3.7.13
 
 SHELL ["conda", "run", "-n", "gaussian_splatting", "/bin/bash", "-c"]
 
