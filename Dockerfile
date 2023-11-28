@@ -17,15 +17,12 @@ RUN apt-get update && \
     apt-get install -y wget && \
     rm -rf /var/lib/apt/lists/*
 
-SHELL ["/bin/bash", "-c"]
-
 # Install conda
 RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     mkdir /root/.conda && \
     bash Miniconda3-latest-Linux-x86_64.sh -b && \
-    rm -f Miniconda3-latest-Linux-x86_64.sh && \
-    source ~/.bashrc
+    rm -f Miniconda3-latest-Linux-x86_64.sh
 
 # Install Colmap
 RUN apt-get update && apt-get -y install colmap
@@ -55,7 +52,6 @@ RUN pip3 install -r requirements.txt
 # Create conda env
 COPY . .
 RUN conda create -n gaussian_splatting python=3.7 && \
-    conda activate gaussian_splatting && \
     conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia && \
     pip install submodules/diff-gaussian-rasterization && \
     pip install submodules/simple-knn && \

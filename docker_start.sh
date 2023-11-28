@@ -1,4 +1,4 @@
 #!/bin/sh
 
 # Start Server
-uvicorn main:app --host 0.0.0.0 --port 8080 --log-level debug --reload
+conda run -n gaussian-splatting uvicorn main:app --host 0.0.0.0 --port 8080 --log-level debug --reload
