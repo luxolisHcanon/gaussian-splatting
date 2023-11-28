@@ -12,14 +12,6 @@ RUN apt-get update -y && \
     apt-get install software-properties-common -y && \
     apt install build-essential -y
 
-# Python install
-RUN apt-get update && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt install -y python3.8 && \
-    apt-get install -y --no-install-recommends python3-pip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
 # Pre-install conda
 RUN apt-get update && \
     apt-get install -y wget && \
@@ -55,12 +47,14 @@ RUN apt-get update && apt-get -y install colmap && \
         libqt5opengl5-dev \
         libcgal-dev \
         libceres-dev && \
-    apt-get install -y \
+
+# Install Cuda toolkit
+RUN apt-get install -y \
         nvidia-cuda-toolkit \
         nvidia-cuda-toolkit-gcc && \
     apt-get install -y g++ freeglut3-dev build-essential libx11-dev \
-        libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev
-
+        libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev && \
+    apt-get install linux-headers-$(uname -r)
 
 # Install requirements
 WORKDIR /workdir
