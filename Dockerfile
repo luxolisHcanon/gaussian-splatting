@@ -1,6 +1,9 @@
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # FROM python:3
 
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
+
 # Remove questions from the installs
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -47,7 +50,7 @@ COPY . .
 RUN conda env create --file environment.yml
 
 # Install requirements
-RUN pip3 install -r requirements.txt
+RUN conda run -n gaussian_splatting /bin/bash -c pip3 install -r requirements.txt
 
 RUN chmod u+x ./docker_start.sh
 
