@@ -51,8 +51,8 @@ RUN pip3 install -r requirements.txt
 
 # Create conda env
 COPY . .
-RUN conda create -n gaussian_splatting python=3.7 && \
-    conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia && \
+RUN conda create -n gaussian_splatting python=3.10 && \
+    conda install pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia && \
     pip install submodules/diff-gaussian-rasterization && \
     pip install submodules/simple-knn && \
     pip install plyfile && \
