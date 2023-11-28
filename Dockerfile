@@ -59,7 +59,11 @@ RUN apt-get update && \
     apt-get install -y gcc-11 g++-11  && \
     export CC=/usr/bin/gcc-11  && \
     export CXX=/usr/bin/g++-11  && \
-    export CUDAHOSTCXX=/usr/bin/g++-11
+    export CUDAHOSTCXX=/usr/bin/g++-11 && \
+    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
+    dpkg -i cuda-keyring_1.1-1_all.deb && \
+    apt-get update && \
+    apt-get -y install cuda-11-8
 
 # Install requirements
 WORKDIR /workdir
