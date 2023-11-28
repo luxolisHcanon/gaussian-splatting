@@ -56,8 +56,8 @@ RUN conda create -n gaussian_splatting python=3.7.13 && \
 
 SHELL ["conda", "run", "-n", "gaussian_splatting", "/bin/bash", "-c"]
 
-RUN pip install submodules/diff-gaussian-rasterization && \
-    pip install submodules/simple-knn && \
+RUN pip install gaussian-splatting-src/submodules/diff-gaussian-rasterization && \
+    pip install install gaussian-splatting-src/submodules/simple-knn && \
     pip install plyfile && \
     pip install tqdm
 
