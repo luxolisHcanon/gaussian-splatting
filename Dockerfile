@@ -22,27 +22,28 @@ RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
     mkdir /root/.conda && \
     bash Miniconda3-latest-Linux-x86_64.sh -b && \
-    rm -f Miniconda3-latest-Linux-x86_64.sh
+    rm -f Miniconda3-latest-Linux-x86_64.sh && \
+    source ~/.bashrc
 
 # Install Colmap
 RUN apt-get update && apt-get -y install colmap
 
-# Install Cuda toolkit and dependencies
-RUN apt-get update && \
-    apt-get install -y \
-        nvidia-cuda-toolkit \
-        nvidia-cuda-toolkit-gcc && \
-    apt-get install -y g++ freeglut3-dev build-essential libx11-dev \
-        libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev && \
-    apt-get install -y linux-headers-$(uname -r) && \
-    apt-get install -y gcc-10 g++-10  && \
-    export CC=/usr/bin/gcc-10  && \
-    export CXX=/usr/bin/g++-10  && \
-    export CUDAHOSTCXX=/usr/bin/g++-10 && \
-    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
-    dpkg -i cuda-keyring_1.1-1_all.deb && \
-    apt-get update && \
-    apt-get -y install cuda-11-8
+## Install Cuda toolkit and dependencies
+#RUN apt-get update && \
+#    apt-get install -y \
+#        nvidia-cuda-toolkit \
+#        nvidia-cuda-toolkit-gcc && \
+#    apt-get install -y g++ freeglut3-dev build-essential libx11-dev \
+#        libxmu-dev libxi-dev libglu1-mesa-dev libfreeimage-dev libglfw3-dev && \
+#    apt-get install -y linux-headers-$(uname -r) && \
+#    apt-get install -y gcc-10 g++-10  && \
+#    export CC=/usr/bin/gcc-10  && \
+#    export CXX=/usr/bin/g++-10  && \
+#    export CUDAHOSTCXX=/usr/bin/g++-10 && \
+#    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
+#    dpkg -i cuda-keyring_1.1-1_all.deb && \
+#    apt-get update && \
+#    apt-get -y install cuda-11-8
 
 # Install requirements
 WORKDIR /workdir
