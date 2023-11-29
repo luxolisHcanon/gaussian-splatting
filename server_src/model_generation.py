@@ -1,13 +1,33 @@
-from . s3_utils import download_object_from_s3, upload_directory_to_s3
+import glob
+import os
+import shutil
+import subprocess
+
+from .s3_utils import download_object_from_s3, upload_directory_to_s3
 
 
 def split_video_into_pictures(video_path):
     print("video_path =", video_path)
-    return "photoPath"
+
+    # Split Video into pictures
+    subprocess.run(["ffmpeg", "-i", video_path, "-qscale:v", "1", "-qmin", "1", "-vf", "fps=5", "%04d.jpg"])
+
+    # Remove the file from the path to get the work directory
+    split_video_path = video_path.split("/")
+    split_video_path.pop()
+    photo_path = "/".join(split_video_path)
+    return photo_path
 
 
 def generate_nerf_model_from_photo_set(photos_path):
     print("photos_path =", photos_path)
+
+    # Create input folder and move all photos in it
+    input_folder_path = os.path.join(photos_path, "input")
+    os.mkdir(input_folder_path)
+    for photo in glob.glob(f'{photos_path}/*.jpg'):
+        shutil.move(photo, input_folder_path)
+
     return "nerfModelPath"
 
 

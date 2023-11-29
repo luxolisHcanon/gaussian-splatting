@@ -10,3 +10,4 @@ gaussian_splatting_src/submodules/diff-gaussian-rasterization/build/
 gaussian_splatting_src/submodules/diff-gaussian-rasterization/diff_gaussian_rasterization.egg-info/
 gaussian_splatting_src/submodules/diff-gaussian-rasterization/dist/
 .idea
+.env

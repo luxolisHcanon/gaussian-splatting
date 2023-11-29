@@ -12,7 +12,7 @@ def download_object_from_s3(file_path):
     split_file.pop(length_split)
     s3_folder = "/".join(split_file)
 
-    destination_download = "/tmp/" + file_name
+    destination_download = "/tmp/gaussian-splatting/" + file_name
 
     s3_client = session.s3_client
     s3_client.download_file(session.bucket_name, file_path, destination_download)
