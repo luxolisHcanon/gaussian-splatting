@@ -10,8 +10,8 @@ class ReconstructionRequest(BaseModel):
 
 
 @app.post("/nerf-reconstruction")
-async def create_upload_file(request: ReconstructionRequest):
-    s3_path = request.url
+async def create_and_upload_model(request: ReconstructionRequest):
+    s3_path = request.s3_path
     print("STARTED API")
     print(f"s3_path -> {s3_path}")
     await generate_and_upload_3d_model(s3_path)
