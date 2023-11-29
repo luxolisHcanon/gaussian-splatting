@@ -1,4 +1,4 @@
-from s3_utils import download_object_from_s3, upload_directory_to_s3
+from . s3_utils import download_object_from_s3, upload_directory_to_s3
 
 
 def split_video_into_pictures(video_path):
