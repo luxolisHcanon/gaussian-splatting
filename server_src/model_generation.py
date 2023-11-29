@@ -29,7 +29,10 @@ def generate_nerf_model_from_photo_set(photos_path):
     for photo in glob.glob('./*.jpg'):
         shutil.move(photo, input_folder_path)
 
-    return "nerfModelPath"
+    # Process the photos with Colmap
+    subprocess.run(["python", "./gaussian_splatting_src/convert.py", "-s", photos_path])
+
+    return photos_path
 
 
 def generate_model_from_nerf_model(nerf_model_path):
