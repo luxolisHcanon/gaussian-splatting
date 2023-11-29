@@ -21,20 +21,25 @@ def download_object_from_s3(file_path):
     return destination_download, s3_folder
 
 
-def upload_directory_to_s3(path, destination):
+def upload_directory_to_s3(path, destination, session):
+    for root, dirs, files in os.walk(path):
+        for directory in dirs:
+            upload_directory_to_s3(os.path.join(root, directory), destination, session)
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_dest = os.path.join(destination, file)
+            try:
+                session.s3_client.upload_file(file_path, session.bucket_name, file_dest)
+            except FileNotFoundError:
+                print(f"The file {file_path} was not found - S3 upload failed")
+            except NoCredentialsError:
+                print(f"AWS credentials not found - {file} S3 upload failed")
+
+
+def upload_full_directory_to_s3(path, destination):
     session = get_s3_session()
 
     if os.path.isdir(path):
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                file_path = os.path.join(root, file)
-                file_dest = os.path.join(destination, file)
-
-                try:
-                    session.s3_client.upload_file(file_path, session.bucket_name, file_dest)
-                except FileNotFoundError:
-                    print(f"The file {file_path} was not found - S3 upload failed")
-                except NoCredentialsError:
-                    print(f"AWS credentials not found - {file} S3 upload failed")
+        upload_directory_to_s3(path, destination, session)
     else:
         print(f"The path {path} is not a directory - S3 upload failed")

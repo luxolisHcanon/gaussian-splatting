@@ -3,7 +3,7 @@ import os
 import shutil
 import subprocess
 
-from .s3_utils import download_object_from_s3, upload_directory_to_s3
+from .s3_utils import download_object_from_s3, upload_full_directory_to_s3
 
 
 def split_video_into_pictures(video_path):
@@ -29,7 +29,7 @@ def generate_nerf_model_from_photo_set(photos_path):
     for photo in glob.glob('./*.jpg'):
         shutil.move(photo, input_folder_path)
 
-    # Process the photos with Colmap
+    # Process the photos
     subprocess.run(["python", "./gaussian_splatting_src/convert.py", "-s", photos_path, "--no_gpu"])
 
     return photos_path
@@ -37,12 +37,19 @@ def generate_nerf_model_from_photo_set(photos_path):
 
 def generate_model_from_nerf_model(nerf_model_path):
     print("nerf_model_path =", nerf_model_path)
-    return "model_output_folder"
+
+    # Train the model
+    subprocess.run(["python", "./gaussian_splatting_src/train.py", "-s", nerf_model_path])
+
+    # Move output folder to work directory
+    shutil.move("./output", nerf_model_path)
+    output_folder_path = os.path.join(nerf_model_path, "output")
+    return output_folder_path
 
 
 async def generate_and_upload_3d_model(s3_path):
     video_path, s3_folder = download_object_from_s3(s3_path)
-    photos_path = split_video_into_pictures(video_path)
-    nerf_model_path = generate_nerf_model_from_photo_set(photos_path)
-    model_output_folder = generate_model_from_nerf_model(nerf_model_path)
-    upload_directory_to_s3(model_output_folder, s3_folder)
+    # photos_path = split_video_into_pictures(video_path)
+    # nerf_model_path = generate_nerf_model_from_photo_set(photos_path)
+    # model_output_folder = generate_model_from_nerf_model(nerf_model_path)
+    upload_full_directory_to_s3("./output", s3_folder)
