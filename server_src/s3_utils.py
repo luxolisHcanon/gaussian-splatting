@@ -1,4 +1,4 @@
-from aws import get_s3_session
+from . aws import get_s3_session
 import os
 from botocore.exceptions import NoCredentialsError
 

@@ -2,7 +2,7 @@ from functools import lru_cache
 
 import boto3
 
-from config import get_config
+from . config import get_config
 
 
 class S3Session:
