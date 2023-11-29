@@ -30,7 +30,7 @@ def generate_nerf_model_from_photo_set(photos_path):
         shutil.move(photo, input_folder_path)
 
     # Process the photos with Colmap
-    subprocess.run(["python", "./gaussian_splatting_src/convert.py", "-s", photos_path])
+    subprocess.run(["python", "./gaussian_splatting_src/convert.py", "-s", photos_path, "--no_gpu"])
 
     return photos_path
 
