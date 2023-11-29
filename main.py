@@ -1,21 +1,19 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from server_src.model_generation import generate_and_upload_3d_model
 
 app = FastAPI(debug=True)
 
 
 class ReconstructionRequest(BaseModel):
-    url: str
-    upload_url: str
+    s3_path: str
 
 
 @app.post("/nerf-reconstruction")
 async def create_upload_file(request: ReconstructionRequest):
-    download_url = request.url
-    upload_url = request.upload_url
+    s3_path = request.url
     print("STARTED API")
-    print(f"download url -> {download_url}")
-    print(f"upload url -> {upload_url}")
-    # upload_response = await convert_usdz_upload_glb(download_url, upload_url)
+    print(f"s3_path -> {s3_path}")
+    await generate_and_upload_3d_model(s3_path)
 
     return {"success": True, 'upload_response': 200}

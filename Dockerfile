@@ -52,8 +52,8 @@ RUN conda env create --file environment.yml
 SHELL ["conda", "run", "-n", "gaussian_splatting", "/bin/bash", "-c"]
 
 # Install requirements
-RUN python ./gaussian-splatting-src/submodules/diff-gaussian-rasterization/setup.py install
-RUN python ./gaussian-splatting-src/submodules/simple-knn/setup.py install
+RUN python ./gaussian_splatting_src/submodules/diff-gaussian-rasterization/setup.py install
+RUN python ./gaussian_splatting_src/submodules/simple-knn/setup.py install
 RUN pip3 install -r requirements.txt
 
 RUN chmod u+x ./docker_start.sh
