@@ -24,8 +24,9 @@ def generate_nerf_model_from_photo_set(photos_path):
 
     # Create input folder and move all photos in it
     input_folder_path = os.path.join(photos_path, "input")
-    os.mkdir(input_folder_path)
-    for photo in glob.glob(f'{photos_path}/*.jpg'):
+    if not os.path.exists(input_folder_path):
+        os.makedirs(input_folder_path)
+    for photo in glob.glob('./*.jpg'):
         shutil.move(photo, input_folder_path)
 
     return "nerfModelPath"
