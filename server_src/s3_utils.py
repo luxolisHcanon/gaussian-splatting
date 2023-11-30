@@ -27,7 +27,7 @@ def unzip_file(file_path, destination_path):
     folder_content = os.listdir(destination_path)
     files = [item for item in folder_content if os.path.isfile(os.path.join(destination_path, item))]
     if len(files) == 1:
-        return files[0]
+        return os.path.join(destination_path, files[0])
     else:
         raise Exception("Zip file does not contain exactly one file.")
 
