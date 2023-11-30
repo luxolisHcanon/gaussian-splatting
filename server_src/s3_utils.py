@@ -24,7 +24,8 @@ def unzip_file(file_path, destination_path):
         zip_ref.extractall(destination_path)
 
     # Get file name
-    files = os.listdir(destination_path)
+    folder_content = os.listdir(destination_path)
+    files = [item for item in folder_content if os.path.isfile(os.path.join(destination_path, item))]
     if len(files) == 1:
         return files[0]
     else:
