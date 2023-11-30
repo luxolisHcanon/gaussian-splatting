@@ -1,6 +1,14 @@
 from . aws import get_s3_session
 import os
 from botocore.exceptions import NoCredentialsError
+import uuid
+
+
+def generate_unique_folder_name(base_path):
+    folder_name = str(uuid.uuid4())
+    while os.path.exists(base_path + folder_name):
+        folder_name = str(uuid.uuid4())
+    return folder_name + "/"
 
 
 def download_object_from_s3(file_path):
@@ -12,7 +20,8 @@ def download_object_from_s3(file_path):
     split_file.pop(length_split)
     s3_folder = "/".join(split_file)
 
-    destination_download = "/tmp/gaussian-splatting/" + file_name
+    base_path = "/tmp/gaussian-splatting/"
+    destination_download = base_path + generate_unique_folder_name(base_path) + file_name
 
     s3_client = session.s3_client
     s3_client.download_file(session.bucket_name, file_path, destination_download)
