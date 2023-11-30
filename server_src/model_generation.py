@@ -61,3 +61,5 @@ async def generate_and_upload_3d_model(s3_path):
         clean_files(nerf_model_path)
     except Exception as e:
         print(f"Exception raised: {e}")
+        return 500
+    return 200
