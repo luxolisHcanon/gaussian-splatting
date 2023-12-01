@@ -3,7 +3,7 @@ import os
 import shutil
 import subprocess
 
-from .s3_utils import download_and_unzip_file_from_s3, upload_full_directory_to_s3
+from .s3_utils import download_file_from_s3, upload_full_directory_to_s3
 
 
 def split_video_into_pictures(video_path):
@@ -53,7 +53,7 @@ def clean_files(path):
 
 async def generate_and_upload_3d_model(s3_path):
     try:
-        video_path, s3_folder = download_and_unzip_file_from_s3(s3_path)
+        video_path, s3_folder = download_file_from_s3(s3_path)
         photos_path = split_video_into_pictures(video_path)
         nerf_model_path = generate_nerf_model_from_photo_set(photos_path)
         model_output_folder = generate_model_from_nerf_model(nerf_model_path)
