@@ -10,7 +10,7 @@ def split_video_into_pictures(video_path):
     print("video_path =", video_path)
 
     # Split Video into pictures
-    subprocess.run(["ffmpeg", "-i", video_path, "-qscale:v", "1", "-qmin", "1", "-vf", "fps=4", "%04d.jpg"])
+    subprocess.run(["ffmpeg", "-i", video_path, "-qscale:v", "1", "-qmin", "1", "-vf", "fps=2", "%04d.jpg"])
 
     # Remove the file from the path to get the work directory
     split_video_path = video_path.split("/")
