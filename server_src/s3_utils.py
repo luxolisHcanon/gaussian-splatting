@@ -13,7 +13,7 @@ def generate_unique_folder(base_path):
         folder_name = str(uuid.uuid4())
 
     os.mkdir(base_path + folder_name)
-    return folder_name
+    return folder_name + "/"
 
 
 def download_file_from_s3(s3_file_path):
