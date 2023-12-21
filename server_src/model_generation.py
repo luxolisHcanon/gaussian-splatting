@@ -49,7 +49,7 @@ async def generate_and_upload_3d_model_from_video(s3_path):
     try:
         video_path, s3_folder = download_file_from_s3(s3_path)
         photos_path = split_video_into_pictures(video_path)
-        await generate_and_upload_3d_model(photos_path, s3_folder)
+        generate_and_upload_3d_model(photos_path, s3_folder)
     except Exception as e:
         print(f"Exception raised: {e}")
         return 500
@@ -60,7 +60,7 @@ async def generate_and_upload_3d_model_from_photos(s3_path):
     try:
         zip_path, s3_folder = download_file_from_s3(s3_path)
         photos_path = unzip_folder(zip_path)
-        await generate_and_upload_3d_model(photos_path, s3_folder)
+        generate_and_upload_3d_model(photos_path, s3_folder)
     except Exception as e:
         print(f"Exception raised: {e}")
         return 500
