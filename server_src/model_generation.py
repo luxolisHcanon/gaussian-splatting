@@ -42,7 +42,7 @@ def generate_and_upload_3d_model(photos_path, s3_folder):
     nerf_model_path = generate_nerf_model_from_photo_set(photos_path)
     model_output_folder = generate_model_from_nerf_model(nerf_model_path)
     upload_full_directory_to_s3(model_output_folder, s3_folder)
-    clean_files(nerf_model_path)
+    # clean_files(nerf_model_path)
 
 
 async def generate_and_upload_3d_model_from_video(s3_path):
