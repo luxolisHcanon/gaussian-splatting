@@ -19,7 +19,7 @@ def create_input_folder(file_path):
     input_folder_path = os.path.join(workdir_path, "input")
     if not os.path.exists(input_folder_path):
         os.makedirs(input_folder_path)
-    return workdir_path
+    return workdir_path, input_folder_path
 
 
 def clean_files(path):
