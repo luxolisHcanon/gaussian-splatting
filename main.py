@@ -22,7 +22,7 @@ class ReconstructionRequest(BaseModel):
 
 @app.post("/reconstruction/nerf/video")
 async def create_and_upload_model(request: ReconstructionRequestWithCallback):
-    response = 200 # await generate_and_upload_3d_model_from_video(request.s3_path)
+    response = await generate_and_upload_3d_model_from_video(request.s3_path)
     if response >= 400:
         return {'success': False, 'upload_response': response}
 
